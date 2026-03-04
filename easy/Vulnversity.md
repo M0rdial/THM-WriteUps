@@ -156,5 +156,5 @@ Results:
 
 
 * After manual investigating the the directories that I found, /internal has file upload form page. It is possible to get reverse shell by uploading a payload.
-<img src="https://imgur.com/gallery/file-upload-form-page-XnytYvc">
+<img src="https://i.imgur.com/XFXJNA1.png">
  
