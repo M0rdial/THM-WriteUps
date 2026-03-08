@@ -70,8 +70,8 @@ Service detection performed. Please report any incorrect results at https://nmap
 ```
 - Looking at the information theres seems to be a webpage that is being hosted on port 80 of the system. Visiting the webpage we see, title of the page is **Hackpark** and a picture of a clown. Using reverse image search by putting the picture of this clown in Google Lens, we find that this clown is the character from the film **IT** named PennyWise. Also, analysizing the page source of the website, we find that it was developed using the BlogEngine framework. **BlogEngine.NET is an open-source, lightweight, and customizable blogging platform built on the Microsoft ASP.NET framework, designed for developers and users seeking a WordPress alternative.** There is also a login page ``` http://10.112.179.163/Account/login.aspx?ReturnURL=/admin/ ```.
 
-**Question: Whats the name of the clown displayed on the homepage?**
-**Answer: Pennywise**
+**Question : Whats the name of the clown displayed on the homepage?**  
+**Answer : Pennywise**
 
 ## Brute-Force Attack Login page
 
@@ -104,11 +104,11 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2026-03-08 19:00:
 
 ```
 
-**Question: What request type is the Windows website login form using?** 
-**Answer: POST**
+**Question : What request type is the Windows website login form using?**  
+**Answer : POST**
 
-**Question: Guess a username, choose a password wordlist and gain credentials to a user account!**
-**Answer: 1qaz2wsx**
+**Question : Guess a username, choose a password wordlist and gain credentials to a user account!**  
+**Answer : 1qaz2wsx**
 
 ## Compromise the machine
 
@@ -156,14 +156,14 @@ iis apppool\blog
 
 ```
 
-**Question: Now you have logged into the website, are you able to identify the version of the BlogEngine?**
-**Answer: 3.3.6.0**
+**Question : Now you have logged into the website, are you able to identify the version of the BlogEngine?**  
+**Answer : 3.3.6.0**
 
-**Question: What is the CVE?**
-**Answer: CVE-2019-6714**
+**Question : What is the CVE?**  
+**Answer : CVE-2019-6714**
 
-**Question: Who is the webserver running as?**
-**Answer: iis apppool\blog**
+**Question : Who is the webserver running as?**  
+**Answer : iis apppool\blog**
 
 ## Windows Privilege Escalation Using Metasploit
 
@@ -336,20 +336,20 @@ meterpreter > upload Message.exe "C:\Program Files (x86)\SystemScheduler"
 
 
 
-**Question: What is the OS version of this windows machine?**
-**Answer: Windows 2012 R2 (6.3 Build 9600)**
+**Question : What is the OS version of this windows machine?**  
+**Answer : Windows 2012 R2 (6.3 Build 9600)**
 
-**Question: Can you spot a service running some automated task that could be easily exploited? What is the name of this service?**
-**Answer: WindowsScheduler**
+**Question : Can you spot a service running some automated task that could be easily exploited? What is the name of this service?**  
+**Answer : WindowsScheduler**
 
-**Question: What is the name of the binary you're supposed to exploit?**
-**Answer: Message.exe**
+**Question : What is the name of the binary you're supposed to exploit?**  
+**Answer : Message.exe**
 
-**Question: What is the user flag (on Jeffs Desktop)?**
-**Answer: type C:\Users\jeff\Desktop\user.txt**
+**Question : What is the user flag (on Jeffs Desktop)?**  
+**Answer : type C:\Users\jeff\Desktop\user.txt**
 
-**Question: What is the root flag?**
-**Answer: type /root/root.txt**
+**Question : What is the root flag?**  
+**Answer : type /root/root.txt**
 
 
 ## Privilege Escalation Without Metasploit
@@ -431,5 +431,5 @@ System Boot Time:          3/8/2026, 7:48:04 AM
 
 ```
 
-**Question: Using winPeas, what was the Original Install time? (This is date and time)**
-**Answer: 8/3/2019, 10:43:23 AM**
+**Question : Using winPeas, what was the Original Install time? (This is date and time)**  
+**Answer : 8/3/2019, 10:43:23 AM**
