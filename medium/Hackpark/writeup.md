@@ -141,7 +141,7 @@ BlogEngine.NET 3.3.6/3.3.7 - XML External Entity Injection | aspx/webapps/47014.
 File Type: HTML document, ASCII text
 
 ```
-- The exploit says that path traversal vulnerability that leads to remote code execution. This is caused by an unchecked "theme" parameter. First, we set the TcpClient address and port within the exploit to my attack host, which has a reverse tcp listener waiting for a connection(Netcat). Next, we upload this file through the file manager. The admin page that allows upload is ``` http://10.112.179.163/admin/app/editor/editpost.cshtml ```. Finally, the vulnerability is triggered by accessing the base URL for the blog with a theme override specified like so: ``` http://10.10.10.10/?theme=../../App_Data/files ```. Once this is done I'll get reverse shell on my tcp listener(Netcat).
+- The exploit says that path traversal vulnerability that leads to remote code execution. This is caused by an unchecked "theme" parameter. First, I set the TcpClient address and port within the exploit to my attack host, which has a reverse tcp listener waiting for a connection(Netcat). Next, we upload this file through the file manager. The admin page that allows upload is ``` http://10.112.179.163/admin/app/editor/editpost.cshtml ```. Finally, the vulnerability is triggered by accessing the base URL for the blog with a theme override specified like so: ``` http://10.10.10.10/?theme=../../App_Data/files ```. Once this is done I'll get reverse shell on my tcp listener(Netcat).
 
 ```
 
