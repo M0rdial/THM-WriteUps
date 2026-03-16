@@ -113,7 +113,11 @@ Finished
 
 ```
 ❯ whatweb -a 3 http://10.113.184.136/administrator/
-http://10.113.184.136/administrator/ [200 OK] Apache[2.4.6], Bootstrap, Cookies[2b01af51830ca9615359108de04d9ca1], Country[RESERVED][ZZ], HTML5, HTTPServer[CentOS][Apache/2.4.6 (CentOS) PHP/5.6.40], HttpOnly[2b01af51830ca9615359108de04d9ca1], IP[10.113.184.136], JQuery, Joomla[3.7.0][com_users], probably Mambo[com_users], MetaGenerator[Joomla! - Open Source Content Management], PHP[5.6.40], PasswordField[passwd], Script[application/json], Title[The Daily Bugle - Administration], X-Frame-Options[SAMEORIGIN], X-Powered-By[PHP/5.6.40], X-UA-Compatible[IE=edge]
+http://10.113.184.136/administrator/ [200 OK] Apache[2.4.6], Bootstrap, Cookies[2b01af51830ca9615359108de04d9ca1],   
+Country[RESERVED][ZZ], HTML5, HTTPServer[CentOS][Apache/2.4.6 (CentOS) PHP/5.6.40], HttpOnly[2b01af51830ca9615359108de04d9ca1],   
+IP[10.113.184.136], JQuery, Joomla[3.7.0][com_users], probably Mambo[com_users], MetaGenerator[Joomla! - Open Source Content Management],   
+PHP[5.6.40], PasswordField[passwd], Script[application/json], Title[The Daily Bugle - Administration], X-Frame-Options[SAMEORIGIN],   
+X-Powered-By[PHP/5.6.40], X-UA-Compatible[IE=edge]
 
 ```
 
