@@ -59,7 +59,8 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 1 IP address (1 host up) scanned in 33.43 seconds
 
 ```
-- Analysing the scan results from nmap, I see that the machine is hosting a website on port 80. Visiting the website I see an article titled **Spider-Man robs bank!**.
+- Analysing the scan results from nmap, I see that the machine is hosting a website on port 80. Visiting the website I see an article titled **Spider-Man robs bank!**.  
+
 ![Web Page](screenshots/dailybugle_webpage_screenshot.png)
 
 ## Directory and Version Enumeration
