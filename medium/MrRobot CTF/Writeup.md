@@ -65,7 +65,7 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 25.28 seconds
 ```
-Analysing the scan results from nmap, I see that the machine is hosting a website on port 80 and 443. Visiting the url `http://10.114.161.84/` I see terminal looking webpage.  
+Analysing the scan results from nmap, I see that the machine is hosting a website on port 80 and 443. Visiting the url `http://10.114.161.84/` I see webpage with terminal graphics and effects.  
 
 ![Web Page](screenshots/MrRobot_website_screenshot.png)
 
@@ -73,7 +73,7 @@ Analysing the scan results from nmap, I see that the machine is hosting a websit
 
 ### Summary
 
-I used gobuster tool to enumerate the website's directories and gathered information from the enumerated directories, used whatweb tool to enumerate the version of the **CMS (Content Management System)** software and identified a vulnerability that can be used against the **CMS** login page.
+I used gobuster tool to enumerate the website's directories and gathered information from the enumerated directories, identified a dictionary/list that possibly contains credentials.
 
 
 **Enumerating directories:**
