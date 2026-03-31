@@ -44,6 +44,26 @@ PORT    STATE SERVICE
 443/tcp open  https
 
 Nmap done: 1 IP address (1 host up) scanned in 77.31 seconds
+
+❯ sudo nmap -n -Pn -sV -sC -p22,80 10.114.161.84
+[sudo] password for kali: 
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-03-31 18:18 +0200
+Nmap scan report for 10.114.161.84
+Host is up (0.53s latency).
+
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.13 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   3072 89:bd:d5:fd:c8:4f:8c:d1:0b:eb:3a:08:39:76:6c:52 (RSA)
+|   256 a5:c1:81:74:9a:6f:63:da:47:ba:12:0a:20:59:e9:0c (ECDSA)
+|_  256 55:0b:55:19:66:69:b2:31:86:09:3e:9b:11:e4:9d:fb (ED25519)
+80/tcp open  http    Apache httpd
+|_http-server-header: Apache
+|_http-title: Site doesn't have a title (text/html).
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 25.28 seconds
 ```
 Analysing the scan results from nmap, I see that the machine is hosting a website on port 80 and 443. Visiting the url `http://10.114.161.84/` I see terminal looking webpage.  
 
